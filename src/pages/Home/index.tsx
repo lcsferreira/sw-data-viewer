@@ -8,17 +8,20 @@ import {
   SpanTitle,
 } from "./style";
 import CategoryCard from "../../components/CategoryCard";
+import { useTheme } from "../../context/ThemeContext";
 
 export const Home = () => {
+  const { mode } = useTheme();
   return (
     <Container>
-      <HomeTitle>
-        Welcome to the Visual Guide of <SpanTitle>Star Wars</SpanTitle>
+      <HomeTitle mode={mode}>
+        Welcome to the Visual Guide of{" "}
+        <SpanTitle mode={mode}>Star Wars</SpanTitle>
       </HomeTitle>
       <HomeContent>
         <Row gutter={[16, 16]} wrap={true}>
           <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
-            <div>Personagens</div>
+            {/* <div>Personagens</div> */}
             <CategoryCard
               title="Characters"
               link="/characters"
@@ -27,17 +30,17 @@ export const Home = () => {
             />
           </Col>
           <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
-            <div>Filmes</div>
+            {/* <div>Filmes</div> */}
           </Col>
           <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
-            <div>Planetas</div>
+            {/* <div>Planetas</div> */}
           </Col>
           <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
-            <div>Naves</div>
+            {/* <div>Naves</div> */}
           </Col>
         </Row>
       </HomeContent>
-      <HomeFooter>
+      <HomeFooter mode={mode}>
         Developed by Lucas Ferreira ©2025. Star wars and all characters are of
         Disney and Lucasfilm. The images were collected freely from Wookiepedia
         and Unsplash.

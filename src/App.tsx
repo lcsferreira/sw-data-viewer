@@ -4,20 +4,23 @@ import { theme } from "antd";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useTheme } from "./context/ThemeContext";
 
 function App() {
   const queryClient = new QueryClient();
+  const { mode } = useTheme();
   return (
     <ConfigProvider
       theme={{
-        algorithm: theme.darkAlgorithm,
+        algorithm:
+          mode === "dark" ? theme.darkAlgorithm : theme.defaultAlgorithm,
         token: {
           fontFamily: "ITC Avant Garde Gothic",
-          colorPrimary: "#BC1E22",
+          colorPrimary: mode === "dark" ? "#BC1E22" : "#1a387d",
         },
         components: {
           Layout: {
-            bodyBg: "transparent",
+            bodyBg: mode === "dark" ? "#1a1a1a" : "#bfbfbd",
           },
         },
       }}

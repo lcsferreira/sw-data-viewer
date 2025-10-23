@@ -4,6 +4,7 @@ import { Character } from "../../../api/models/Character";
 import { Link } from "react-router-dom";
 import { SkeletonImage, CharacterContainer, Description } from "./style";
 import { swapiUrl } from "../../../api/utils";
+import { useTheme } from "../../../context/ThemeContext";
 // import { imgApiUrl } from "../../../api/utils";
 
 export interface CharacterCardProps {

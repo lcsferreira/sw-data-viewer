@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { Layout, Menu, Button } from "antd";
+import { Layout, Menu, Button, Switch, Tooltip } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -9,6 +9,7 @@ import {
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { RouteLayout } from "../../routes/style";
 import { HeaderTitle, ContentWrapper, SpanTitle } from "./style";
+import { useTheme } from "../../context/ThemeContext";
 
 const { Header, Sider, Content } = Layout;
 
@@ -41,6 +42,7 @@ export default function AppLayout() {
   const [collapsed, setCollapsed] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { mode, toggleMode } = useTheme();
 
   const selectedKeys = useMemo(() => {
     return [getMenuKeyByPath(pathname)];
@@ -48,12 +50,12 @@ export default function AppLayout() {
 
   return (
     <RouteLayout>
-      <Layout style={{ minHeight: "100vh", background: "transparent" }}>
+      <Layout style={{ minHeight: "100vh" }}>
         <Sider
           collapsible
           collapsed={collapsed}
           onCollapse={setCollapsed}
-          theme="light"
+          theme={mode === "dark" ? "light" : "dark"}
         >
           <div
             style={{
@@ -62,13 +64,13 @@ export default function AppLayout() {
               alignItems: "center",
               justifyContent: "center",
               fontWeight: 700,
-              color: "white",
+              color: mode === "dark" ? "white" : "black",
             }}
           >
-            <SpanTitle>SW</SpanTitle>
+            <SpanTitle mode={mode}>SW</SpanTitle>
           </div>
           <Menu
-            theme="light"
+            theme={mode === "dark" ? "light" : "dark"}
             mode="vertical"
             selectedKeys={selectedKeys}
             style={{ borderInlineEnd: "none" }}
@@ -93,6 +95,7 @@ export default function AppLayout() {
               alignItems: "center",
               gap: 12,
               background: "rgba(0,0,0,0.45)",
+              justifyContent: "space-between",
             }}
           >
             <Button
@@ -102,6 +105,16 @@ export default function AppLayout() {
               style={{ fontSize: 18, width: 42, height: 42 }}
             />
             {/* <HeaderTitle>Star Wars Visual Guide</HeaderTitle> */}
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+              <Tooltip title={mode === "dark" ? "Light" : "Dark"}>
+                <Switch
+                  checked={mode === "dark"}
+                  checkedChildren="Dark"
+                  unCheckedChildren="Light"
+                  onChange={() => toggleMode()}
+                />
+              </Tooltip>
+            </div>
           </Header>
           <Content>
             <ContentWrapper>

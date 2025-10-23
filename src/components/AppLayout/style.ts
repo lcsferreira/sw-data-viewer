@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ThemeMode } from "../../context/ThemeContext";
 
 export const HeaderTitle = styled.h1`
   margin: 0;
@@ -12,8 +13,8 @@ export const ContentWrapper = styled.div`
   background: transparent;
 `;
 
-export const SpanTitle = styled.span`
-  color: #bc1e22;
+export const SpanTitle = styled.span<{ mode?: ThemeMode }>`
+  color: ${(props) => (props.mode === "dark" ? "#bc1e22" : "#1a387d")};
   font-size: 24px;
   font-family: "SFDistantGalaxy-Regular";
 `;
