@@ -1,0 +1,17 @@
+services:
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sw-data-viewer
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
+    env_file:
+      - .env
+    command: ["npm", "run", "dev", "--", "--host"]
