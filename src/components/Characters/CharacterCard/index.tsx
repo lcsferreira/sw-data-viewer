@@ -24,7 +24,7 @@ const CharacterCard = ({ character, loading }: CharacterCardProps) => {
           ) : (
             <Image
               alt={character.name}
-              src={`${swapiUrl}people/${character?.url?.match(/\d+/)?.[0]}.jpg`}
+              src={`placeholder.jpg`}
               onError={(e) => {
                 e.currentTarget.src = `placeholder.jpg`;
               }}
