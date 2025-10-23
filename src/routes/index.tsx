@@ -3,7 +3,7 @@ import { Home } from "../pages/Home";
 import Characters from "../pages/Characters";
 // import People from "../pages/People";
 // import { Home } from "../pages/Home";
-// import Movies from "../pages/Movies";
+import Movies from "../pages/Movies";
 // import CustomHeader from "../components/CustomHeader";
 // import Character from "../pages/Character";
 import { RouteLayout } from "./style";
@@ -19,7 +19,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/characters", element: <Characters /> },
       // { path: "/characters/:id", element: <Character /> },
-      // { path: "/movies", element: <Movies /> },
+      { path: "/movies", element: <Movies /> },
       // { path: "/movies/:id", element: <Movie /> },
       // {
       //   path: "/planets",

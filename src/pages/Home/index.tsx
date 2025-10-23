@@ -31,6 +31,12 @@ export const Home = () => {
           </Col>
           <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
             {/* <div>Filmes</div> */}
+            <CategoryCard
+              title="Movies"
+              link="/movies"
+              cover_img="https://images.unsplash.com/photo-1657369062846-7e18bb02d063?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=687"
+              description="Discover the movies of Star Wars."
+            />
           </Col>
           <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
             {/* <div>Planetas</div> */}

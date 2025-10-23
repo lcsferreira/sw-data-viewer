@@ -5,10 +5,12 @@ import {
   MenuUnfoldOutlined,
   HomeOutlined,
   TeamOutlined,
+  FileOutlined,
+  FolderOpenFilled,
 } from "@ant-design/icons";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { RouteLayout } from "../../routes/style";
-import { HeaderTitle, ContentWrapper, SpanTitle } from "./style";
+import { ContentWrapper, SpanTitle } from "./style";
 import { useTheme } from "../../context/ThemeContext";
 
 const { Header, Sider, Content } = Layout;
@@ -21,12 +23,18 @@ type MenuItem = {
 };
 
 const menuItems: MenuItem[] = [
-  { key: "home", label: "Início", path: "/", icon: <HomeOutlined /> },
+  { key: "home", label: "Home", path: "/", icon: <HomeOutlined /> },
   {
     key: "characters",
-    label: "Personagens",
+    label: "Characters",
     path: "/characters",
     icon: <TeamOutlined />,
+  },
+  {
+    key: "movies",
+    label: "Movies",
+    path: "/movies",
+    icon: <FolderOpenFilled />,
   },
 ];
 
