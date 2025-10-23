@@ -3,8 +3,10 @@ import { ConfigProvider } from "antd";
 import { theme } from "antd";
 import { RouterProvider } from "react-router-dom";
 import router from "./routes";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
     <ConfigProvider
       theme={{
@@ -20,7 +22,9 @@ function App() {
         },
       }}
     >
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
     </ConfigProvider>
   );
 }

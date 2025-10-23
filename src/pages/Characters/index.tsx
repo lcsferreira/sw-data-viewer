@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Character } from "../../api/models/Character";
 import { useDebounce } from "../../hooks/useDebounce";
 import { getCharacters } from "../../api/services/characters";
@@ -11,46 +11,31 @@ import {
 } from "./style";
 import { Button, Flex, Row, Spin } from "antd";
 import CharacterCard from "../../components/Characters/CharacterCard";
+import { useQuery } from "@tanstack/react-query";
 
 const Characters = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const [total, setTotal] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
   const debouncedSearch = useDebounce(search, 500);
 
-  const loadCharacters = async (
-    page: number,
-    debouncedSearch: string
-  ): Promise<void> => {
-    try {
-      setLoading(true);
-      const response = await getCharacters(page, debouncedSearch);
-      // response.results.forEach((character: Character) => {
-      //   formatCharacter(character);
-      // });
-      setCharacters(response.results);
-      setTotal(response.count);
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    data: response,
+    isLoading,
+    isFetching,
+  } = useQuery({
+    queryKey: ["characters", page, debouncedSearch],
+    queryFn: () => getCharacters(page, debouncedSearch),
+    // (Opcional, mas ótimo para UX de paginação)
+    // Mantém os dados antigos visíveis enquanto os novos carregam
+    // keepPreviousData: true,
+  });
 
-  useEffect(() => {
-    loadCharacters(page, debouncedSearch);
-  }, [page, debouncedSearch]);
-
-  const handleSearch = (value: string) => {
-    setSearch(value);
-    setPage(1);
-  };
+  const characters: Character[] = response?.results ?? [];
+  const total: number = response?.count ?? 0;
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setPage(1);
     setSearch(e.target.value);
+    setPage(1);
   };
 
   return (
@@ -58,37 +43,41 @@ const Characters = () => {
       <SearchBar>
         <BackButton to="/">
           <Button type="primary" color="primary">
-            Voltar
+            Back
           </Button>
         </BackButton>
         <SearchInput
-          placeholder="Pesquisar por personagens"
-          onSearch={handleSearch}
-          onChange={handleSearchChange}
+          placeholder="Search for characters"
+          onChange={handleSearchChange} // Só precisamos do onChange agora
+          value={search} // Controlamos o input
         />
       </SearchBar>
       <Row justify="center">
-        {characters &&
-          characters.map((character: Character) => (
-            <CharacterCard
-              key={character.url}
-              character={character}
-              loading={loading}
-            />
-          ))}
-        {loading && characters.length === 0 && (
+        {/* 5. Usamos o 'isLoading' para o primeiro carregamento */}
+        {isLoading && characters.length === 0 && (
           <Flex align="center" gap="middle">
             <Spin size="large" />
           </Flex>
         )}
+        {/* Renderizamos os personagens. 
+          Se 'keepPreviousData' for true, os personagens antigos
+          continuam aqui enquanto os novos carregam, o que é ótimo!
+        */}
+        {characters.map((character: Character) => (
+          <CharacterCard
+            key={character.url}
+            character={character} // Passamos 'isFetching' para o card se ele precisar // mostrar um skeleton ou algo do tipo
+            loading={isFetching}
+          />
+        ))}
       </Row>
       <PaginationContainer
         current={page}
         total={total}
         pageSize={10}
         showSizeChanger={false}
-        onChange={(page) => setPage(page)}
-        disabled={loading}
+        onChange={(page) => setPage(page)} // Desabilitamos enquanto uma nova página está sendo buscada
+        disabled={isFetching}
       />
     </Container>
   );
