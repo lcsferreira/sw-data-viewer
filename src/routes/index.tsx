@@ -7,18 +7,10 @@ import Characters from "../pages/Characters";
 // import CustomHeader from "../components/CustomHeader";
 // import Character from "../pages/Character";
 import { RouteLayout } from "./style";
+import AppLayout from "../components/AppLayout";
 // import Movie from "../pages/Movie";
 // import Planets from "../pages/Planets";
 // import Startships from "../pages/Starships";
-
-const AppLayout = () => {
-  return (
-    <RouteLayout>
-      {/* <CustomHeader /> */}
-      <Outlet />
-    </RouteLayout>
-  );
-};
 
 const router = createBrowserRouter([
   {
