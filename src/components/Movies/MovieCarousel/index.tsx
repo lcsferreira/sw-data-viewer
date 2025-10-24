@@ -1,5 +1,6 @@
 import { Card } from "antd";
 import {
+  CarouselCard,
   CarouselContainer,
   CarouselImage,
   CharacterMoviesContainer,
@@ -7,6 +8,8 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { getMovie } from "../../../api/services/movies";
 import { Movie } from "../../../api/models/Movie";
+import { useTheme } from "../../../context/ThemeContext";
+import { useNavigate } from "react-router-dom";
 
 interface MovieCarouselProps {
   loading: boolean;
@@ -14,6 +17,8 @@ interface MovieCarouselProps {
 }
 
 const MovieCarousel = ({ loading, filmsUrls }: MovieCarouselProps) => {
+  const { mode } = useTheme();
+  const navigate = useNavigate();
   const {
     data: movies = [],
     isLoading: moviesLoading,
@@ -29,11 +34,17 @@ const MovieCarousel = ({ loading, filmsUrls }: MovieCarouselProps) => {
     staleTime: 1000 * 60 * 10,
   });
 
+  const handleClick = (movie: Movie) => {
+    navigate(`/movies/${movie.url.match(/\d+/)?.[0]}`);
+  };
+
   return (
     <CharacterMoviesContainer title="Appearances in movies" loading={loading}>
-      <CarouselContainer arrows autoplay dots>
+      <CarouselContainer arrows dots $mode={mode}>
         {movies.map((movie) => (
-          <Card
+          <CarouselCard
+            onClick={() => handleClick(movie)}
+            $mode={mode}
             key={movie.episode_id}
             title={movie.title}
             loading={moviesLoading}
@@ -47,7 +58,7 @@ const MovieCarousel = ({ loading, filmsUrls }: MovieCarouselProps) => {
                 }}
               />
             }
-          ></Card>
+          />
         ))}
       </CarouselContainer>
     </CharacterMoviesContainer>
