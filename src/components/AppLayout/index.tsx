@@ -39,6 +39,10 @@ const menuItems: MenuItem[] = [
 
 function getMenuKeyByPath(pathname: string): string {
   const found = menuItems.find((item) => item.path === pathname);
+  // se a rota for /movies/:id, retorna o key do menu de filmes
+  if (pathname.includes("/movies/")) {
+    return "movies";
+  }
   if (!found) {
     throw new Error(`Rota não mapeada no menu: ${pathname}`);
   }

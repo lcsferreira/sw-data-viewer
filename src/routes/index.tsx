@@ -8,6 +8,7 @@ import Movies from "../pages/Movies";
 // import Character from "../pages/Character";
 import { RouteLayout } from "./style";
 import AppLayout from "../components/AppLayout";
+import MovieDetails from "../pages/Movies/MovieDetails";
 // import Movie from "../pages/Movie";
 // import Planets from "../pages/Planets";
 // import Startships from "../pages/Starships";
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
       { path: "/characters", element: <Characters /> },
       // { path: "/characters/:id", element: <Character /> },
       { path: "/movies", element: <Movies /> },
-      // { path: "/movies/:id", element: <Movie /> },
+      { path: "/movies/:id", element: <MovieDetails /> },
       // {
       //   path: "/planets",
       //   element: <Planets />,
