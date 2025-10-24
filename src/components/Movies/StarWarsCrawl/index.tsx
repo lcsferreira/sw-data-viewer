@@ -39,7 +39,7 @@ const StarWarsCrawl: React.FC<StarWarsCrawlProps> = ({
       width="80vw" /* Opcional: ajustar largura */
     >
       <CrawlContainer>
-        <CrawlContent animate={animate}>
+        <CrawlContent $animate={animate}>
           <TextContainer>
             <EpisodeTitle>Episode {episode}</EpisodeTitle>
             <MovieTitle level={2}>{title}</MovieTitle>

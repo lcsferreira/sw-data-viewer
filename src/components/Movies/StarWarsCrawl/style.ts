@@ -22,7 +22,7 @@ export const CrawlContainer = styled.div`
   font-family: "Arial", sans-serif;
 `;
 
-export const CrawlContent = styled.div<{ animate: boolean }>`
+export const CrawlContent = styled.div<{ $animate: boolean }>`
   position: absolute;
   perspective: 730px;
   width: 100%;
@@ -30,7 +30,7 @@ export const CrawlContent = styled.div<{ animate: boolean }>`
   align-items: center;
   justify-content: center;
   ${(props) =>
-    props.animate &&
+    props.$animate &&
     css`
       animation: ${crawlAnimation} 60s linear;
     `}
