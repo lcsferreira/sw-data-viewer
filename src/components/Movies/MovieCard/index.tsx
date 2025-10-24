@@ -19,18 +19,18 @@ const MovieCard = ({ movie, loading }: MovieCardProps) => {
         hoverable
         loading={loading}
         cover={
-          loading ? (
-            <Image alt={movie.title} src={`placeholder.jpg`} preview={false} />
-          ) : (
-            <Image
-              alt={movie.title}
-              src={`placeholder.jpg`}
-              onError={(e) => {
-                e.currentTarget.src = `placeholder.jpg`;
-              }}
-              preview={false}
-            />
-          )
+          // loading ? (
+          //   <Image alt={movie.title} src={`placeholder.jpg`} preview={false} />
+          // ) : (
+          <Image
+            alt={movie.title}
+            src={`/films/${id}.jpg`}
+            onError={(e) => {
+              e.currentTarget.src = `placeholder.jpg`;
+            }}
+            preview={false}
+          />
+          // )
         }
       >
         <Meta

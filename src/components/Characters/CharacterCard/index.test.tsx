@@ -53,15 +53,27 @@ describe("CharacterCard", () => {
     expect(characterNames.length).toBeGreaterThan(0);
   });
 
-  it("should render character image when not loading", () => {
+  it("should render key character info without image", () => {
     render(
       <MemoryRouter>
         <CharacterCard character={character.character} loading={false} />
       </MemoryRouter>
     );
 
-    const characterImage = screen.getByAltText("Luke Skywalker");
-    expect(characterImage).toBeInTheDocument();
+    // labels
+    expect(screen.getByText("Nasc.")).toBeInTheDocument();
+    expect(screen.getByText("Gênero")).toBeInTheDocument();
+    expect(screen.getByText("Altura")).toBeInTheDocument();
+    expect(screen.getByText("Massa")).toBeInTheDocument();
+
+    // values
+    expect(screen.getByText("19BBY")).toBeInTheDocument();
+    expect(screen.getByText("male")).toBeInTheDocument();
+    expect(screen.getByText(/172\s*cm/)).toBeInTheDocument();
+    expect(screen.getByText(/77\s*kg/)).toBeInTheDocument();
+
+    // ensure no image element is present
+    expect(screen.queryByRole("img")).toBeNull();
   });
 
   it("should render character link with correct URL", () => {

@@ -25,9 +25,6 @@ const Characters = () => {
   } = useQuery({
     queryKey: ["characters", page, debouncedSearch],
     queryFn: () => getCharacters(page, debouncedSearch),
-    // (Opcional, mas ótimo para UX de paginação)
-    // Mantém os dados antigos visíveis enquanto os novos carregam
-    // keepPreviousData: true,
   });
 
   const characters: Character[] = response?.results ?? [];

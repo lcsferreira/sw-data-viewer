@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from "react";
-import { Layout, Menu, Button, Switch, Tooltip } from "antd";
+import React, { useEffect, useMemo, useState } from "react";
+import { Layout, Menu, Button, Switch, Tooltip, Drawer, Grid } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   HomeOutlined,
   TeamOutlined,
-  FileOutlined,
   FolderOpenFilled,
 } from "@ant-design/icons";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -51,51 +50,102 @@ export default function AppLayout() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { mode, toggleMode } = useTheme();
+  const screens = Grid.useBreakpoint();
+  const isMobile = !screens.md;
 
   const selectedKeys = useMemo(() => {
     return [getMenuKeyByPath(pathname)];
   }, [pathname]);
 
+  useEffect(() => {
+    if (isMobile) {
+      setCollapsed(true);
+    }
+  }, [isMobile]);
+
   return (
     <RouteLayout>
       <Layout style={{ minHeight: "100vh" }}>
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={setCollapsed}
-          theme={mode === "dark" ? "light" : "dark"}
-        >
-          <div
-            style={{
-              height: 64,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: 700,
-              color: mode === "dark" ? "white" : "black",
-            }}
-          >
-            <SpanTitle mode={mode}>SW</SpanTitle>
-          </div>
-          <Menu
+        {!isMobile && (
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={setCollapsed}
+            trigger={null}
             theme={mode === "dark" ? "light" : "dark"}
-            mode="vertical"
-            selectedKeys={selectedKeys}
-            style={{ borderInlineEnd: "none" }}
-            items={menuItems.map((item) => ({
-              key: item.key,
-              icon: item.icon,
-              label: item.label,
-            }))}
-            onClick={({ key }) => {
-              const target = menuItems.find((i) => i.key === key);
-              if (!target) {
-                throw new Error(`Item de menu desconhecido: ${String(key)}`);
-              }
-              navigate(target.path);
-            }}
-          />
-        </Sider>
+          >
+            <div
+              style={{
+                height: 64,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 700,
+                color: mode === "dark" ? "white" : "black",
+              }}
+            >
+              <SpanTitle mode={mode}>SW</SpanTitle>
+            </div>
+            <Menu
+              theme={mode === "dark" ? "light" : "dark"}
+              mode="vertical"
+              selectedKeys={selectedKeys}
+              style={{ borderInlineEnd: "none" }}
+              items={menuItems.map((item) => ({
+                key: item.key,
+                icon: item.icon,
+                label: item.label,
+              }))}
+              onClick={({ key }) => {
+                const target = menuItems.find((i) => i.key === key);
+                if (!target) {
+                  throw new Error(`Item de menu desconhecido: ${String(key)}`);
+                }
+                navigate(target.path);
+              }}
+            />
+          </Sider>
+        )}
+        {isMobile && (
+          <Drawer
+            placement="left"
+            width="100%"
+            open={!collapsed}
+            onClose={() => setCollapsed(true)}
+            bodyStyle={{ padding: 0 }}
+          >
+            <div
+              style={{
+                height: 64,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                fontWeight: 700,
+                color: mode === "dark" ? "white" : "black",
+                background: mode === "dark" ? "#141414" : "#ffffff",
+              }}
+            >
+              <SpanTitle mode={mode}>SW</SpanTitle>
+            </div>
+            <Menu
+              theme={mode === "dark" ? "light" : "dark"}
+              mode="inline"
+              selectedKeys={selectedKeys}
+              items={menuItems.map((item) => ({
+                key: item.key,
+                icon: item.icon,
+                label: item.label,
+              }))}
+              onClick={({ key }) => {
+                const target = menuItems.find((i) => i.key === key);
+                if (target) {
+                  navigate(target.path);
+                }
+                setCollapsed(true);
+              }}
+            />
+          </Drawer>
+        )}
         <Layout>
           <Header
             style={{

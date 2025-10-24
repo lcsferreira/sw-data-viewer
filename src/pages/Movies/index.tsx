@@ -41,11 +41,11 @@ const Movies = () => {
       <SearchBar>
         <BackButton to="/">
           <Button type="primary" color="primary">
-            Voltar
+            Back
           </Button>
         </BackButton>
         <SearchInput
-          placeholder="Pesquisar por filmes"
+          placeholder="Search for movies"
           onSearch={handleSearch}
           onChange={handleSearchChange}
         />

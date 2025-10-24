@@ -12,6 +12,7 @@ export const Container = styled.div`
 export const SearchBar = styled(Header)`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 26px;
   gap: 20px;
   background-color: transparent;

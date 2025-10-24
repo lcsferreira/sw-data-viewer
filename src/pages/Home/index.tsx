@@ -15,11 +15,11 @@ export const Home = () => {
   return (
     <Container>
       <HomeTitle mode={mode}>
-        Welcome to the Visual Guide of{" "}
+        Welcome to the Data Viewer of{" "}
         <SpanTitle mode={mode}>Star Wars</SpanTitle>
       </HomeTitle>
       <HomeContent>
-        <Row gutter={[16, 16]} wrap={true}>
+        <Row gutter={[16, 16]} wrap={true} justify="center">
           <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
             {/* <div>Personagens</div> */}
             <CategoryCard
@@ -38,12 +38,12 @@ export const Home = () => {
               description="Discover the movies of Star Wars."
             />
           </Col>
-          <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
-            {/* <div>Planetas</div> */}
+          {/* <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
+            <div>Planetas</div>
           </Col>
           <Col span={6} xs={24} sm={12} md={6} lg={6} xl={6}>
-            {/* <div>Naves</div> */}
-          </Col>
+            <div>Naves</div>
+          </Col> */}
         </Row>
       </HomeContent>
       <HomeFooter mode={mode}>
