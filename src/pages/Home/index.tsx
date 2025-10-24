@@ -1,5 +1,3 @@
-import Col from "antd/lib/col";
-import Row from "antd/lib/row";
 import {
   Container,
   HomeContent,
@@ -9,6 +7,7 @@ import {
 } from "./style";
 import CategoryCard from "../../components/CategoryCard";
 import { useTheme } from "../../context/ThemeContext";
+import { Col, Row } from "antd";
 
 export const Home = () => {
   const { mode } = useTheme();
