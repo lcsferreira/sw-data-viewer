@@ -43,6 +43,9 @@ function getMenuKeyByPath(pathname: string): string {
   if (pathname.includes("/movies/")) {
     return "movies";
   }
+  if (pathname.includes("/characters/")) {
+    return "characters";
+  }
   if (!found) {
     throw new Error(`Rota não mapeada no menu: ${pathname}`);
   }

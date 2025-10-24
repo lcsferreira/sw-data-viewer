@@ -7,7 +7,7 @@ import PlayCircleFilled from "@ant-design/icons/lib/icons/PlayCircleFilled";
 import StopFilled from "@ant-design/icons/lib/icons/StopFilled";
 import { format } from "date-fns";
 import useWindowDimensions from "../../../hooks/useWindowDimensios";
-// import { imgApiUrl } from "../../../api/utils";
+import { useTheme } from "../../../context/ThemeContext";
 
 interface MovieDetailProps {
   movie: Movie;
@@ -18,6 +18,7 @@ interface MovieDetailProps {
 const MovieDetail = ({ movie, loading, movieId }: MovieDetailProps) => {
   const [playOpeningCrawl, setPlayOpeningCrawl] = useState<boolean>(false);
   const { width } = useWindowDimensions();
+  const { mode } = useTheme();
   return (
     <>
       <MovieDetailCard
@@ -30,7 +31,11 @@ const MovieDetail = ({ movie, loading, movieId }: MovieDetailProps) => {
             {movie?.title}
           </Typography.Title>
         }
-        extra={<BackButton to="/movies">Back</BackButton>}
+        extra={
+          <BackButton mode={mode} to="/movies">
+            Back
+          </BackButton>
+        }
         loading={loading}
       >
         <Row gutter={[16, 16]}>

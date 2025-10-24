@@ -30,7 +30,7 @@ const MovieCarousel = ({ loading, filmsUrls }: MovieCarouselProps) => {
   });
 
   return (
-    <CharacterMoviesContainer title="Aparições em filmes" loading={loading}>
+    <CharacterMoviesContainer title="Appearances in movies" loading={loading}>
       <CarouselContainer arrows autoplay dots>
         {movies.map((movie) => (
           <Card

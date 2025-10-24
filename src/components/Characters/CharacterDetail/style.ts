@@ -3,8 +3,8 @@ import Card from "antd/es/card/Card";
 import { Link } from "react-router-dom";
 import { ThemeMode } from "../../../context/ThemeContext";
 
-export const MovieDetailCard = styled(Card)`
-  max-width: 1000px;
+export const CharacterDetailCard = styled(Card)`
+  width: 60%;
 `;
 
 export const BackButton = styled(Link)<{ mode: ThemeMode }>`

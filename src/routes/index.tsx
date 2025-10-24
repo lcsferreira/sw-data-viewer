@@ -1,17 +1,10 @@
-import { Outlet, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { Home } from "../pages/Home";
 import Characters from "../pages/Characters";
-// import People from "../pages/People";
-// import { Home } from "../pages/Home";
 import Movies from "../pages/Movies";
-// import CustomHeader from "../components/CustomHeader";
-// import Character from "../pages/Character";
-import { RouteLayout } from "./style";
 import AppLayout from "../components/AppLayout";
 import MovieDetails from "../pages/Movies/MovieDetails";
-// import Movie from "../pages/Movie";
-// import Planets from "../pages/Planets";
-// import Startships from "../pages/Starships";
+import CharacterDetails from "../pages/Characters/CharacterDetail";
 
 const router = createBrowserRouter([
   {
@@ -19,17 +12,9 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/characters", element: <Characters /> },
-      // { path: "/characters/:id", element: <Character /> },
+      { path: "/characters/:id", element: <CharacterDetails /> },
       { path: "/movies", element: <Movies /> },
       { path: "/movies/:id", element: <MovieDetails /> },
-      // {
-      //   path: "/planets",
-      //   element: <Planets />,
-      // },
-      // {
-      //   path: "/starships",
-      //   element: <Startships />,
-      // },
     ],
   },
 ]);
