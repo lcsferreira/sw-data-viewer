@@ -68,7 +68,7 @@ const MovieDetails = () => {
               title="Characters"
               items={characters}
               renderItem={(item: Character) => (
-                <Paragraph>{item.name}</Paragraph>
+                <Paragraph key={item.url}>{item.name}</Paragraph>
               )}
               loading={charactersLoading}
               error={charactersError ? "Error loading characters" : ""}
