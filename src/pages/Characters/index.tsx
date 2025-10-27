@@ -52,7 +52,7 @@ const Characters = () => {
       <Row justify="center">
         {isLoading && characters.length === 0 && (
           <Flex align="center" gap="middle">
-            <Spin size="large" />
+            <Spin size="large" data-testid="spinner" />
           </Flex>
         )}
         {characters.map((character: Character) => (

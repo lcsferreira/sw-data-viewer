@@ -1,43 +1,30 @@
 import { useParams } from "react-router-dom";
 import { getCharacter } from "../../../api/services/characters";
-import { useEffect, useState } from "react";
 import type { Character } from "../../../api/models/Character";
 import { Layout, Spin } from "antd";
 import CharacterDetail from "../../../components/Characters/CharacterDetail";
 import MovieCarousel from "../../../components/Movies/MovieCarousel";
 import { CardError, CharacterDetailContainer, ContentError } from "./style";
+import { useQuery } from "@tanstack/react-query";
 
 const CharacterDetails = () => {
-  const [character, setCharacter] = useState<Character | null>(null);
-  const [loading, setLoading] = useState<boolean>(false);
-
-  const [error, setError] = useState<string>("");
   const { id } = useParams<{ id: string }>();
 
-  const loadCharacter = async (id: string) => {
-    try {
-      setLoading(true);
-      const characterData = await getCharacter(id);
-      setCharacter(characterData);
-    } catch (error) {
-      setError("Erro ao carregar personagem");
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    data: character,
+    isLoading: loading,
+    error: characterError,
+  } = useQuery<Character>({
+    queryKey: ["character", id],
+    queryFn: () => getCharacter(id!),
+  });
 
-  useEffect(() => {
-    if (id) {
-      loadCharacter(id);
-    }
-  }, [id]);
-
-  if (error) {
+  if (characterError) {
     return (
       <Layout>
         <ContentError>
           <CardError title="Erro">
-            <p>{error}</p>
+            <p>{characterError}</p>
           </CardError>
         </ContentError>
       </Layout>
