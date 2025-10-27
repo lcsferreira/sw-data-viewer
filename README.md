@@ -1,46 +1,129 @@
-# Getting Started with Create React App
+## SW Data Viewer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação React que exibe dados do universo Star Wars (filmes, personagens, espécies e planetas), consumindo a API pública. O projeto foi iniciado com Create React App (CRA) e oferece suporte a desenvolvimento local com Node e a um ambiente de desenvolvimento via Docker/Compose com hot-reload.
 
-## Available Scripts
+### Stack
 
-In the project directory, you can run:
+- React 17 + TypeScript
+- React Router 6
+- Ant Design 5 + styled-components
+- Axios
+- React Scripts (CRA)
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Requisitos
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Node 18 LTS (se executar localmente sem Docker)
+- NPM 9+ ou compatível com Node 18
+- Docker Desktop e Docker Compose v2 (se executar via Docker)
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Variáveis de ambiente
 
-### `npm run build`
+A aplicação lê a URL base da API de `process.env.REACT_APP_SWAPI_URL`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Exemplo de `.env` na raiz do projeto:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+REACT_APP_SWAPI_URL=https://swapi.dev/api
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Importante:
 
-### `npm run eject`
+- Em tempo de execução no container, o Compose carrega o arquivo `.env` automaticamente (veja `docker-compose.yml`).
+- Em ambiente local (sem Docker), crie o arquivo `.env` na raiz antes de iniciar `npm start`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Bug conhecido (deve ser corrigido no código/infra): o `docker-compose.yml` exporta `REACT_APP_API_URL`, enquanto o código usa `REACT_APP_SWAPI_URL`. Alinhe os nomes para evitar comportamento inesperado. Recomendação: padronizar para `REACT_APP_SWAPI_URL`.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Instalação (sem Docker)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. Instale dependências:
+   ```bash
+   npm install
+   ```
+2. Configure o `.env` conforme acima.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Execução em desenvolvimento (sem Docker)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+npm start
+```
+
+- Acesse `http://localhost:3000`.
+- Hot-reload habilitado via CRA.
+
+Scripts úteis:
+
+- `npm test`: executa testes em modo watch.
+- `npm run build`: gera build de produção em `build/`.
+
+---
+
+## Execução em desenvolvimento com Docker/Compose (recomendado)
+
+Este modo simula um ambiente de DEV isolado, com dependências imutáveis e hot-reload via bind mounts.
+
+Pré-requisitos:
+
+- Docker Desktop em execução
+- Arquivo `.env` com `REACT_APP_SWAPI_URL` devidamente configurado
+
+Subir o ambiente:
+
+```bash
+docker compose up --build
+```
+
+Detalhes relevantes do `docker-compose.yml`:
+
+- Porta mapeada: `3000:3000`
+- Volume: `.:/app` (hot-reload) e `/app/node_modules` como diretório interno
+- Comando: `npm run dev -- --host` para expor o servidor do CRA no container
+- Nome do container: `sw-data-viewer`
+
+Acesse a aplicação em `http://localhost:3000`.
+
+Parar/limpar:
+
+```bash
+docker compose down
+```
+
+## Estrutura de pastas (resumo)
+
+```
+src/
+  api/            # axios instance, models e services
+  components/     # componentes UI (Cards, Carrossel, Detalhes, etc.)
+  pages/          # rotas de páginas (Home, Movies, Characters)
+  routes/         # configuração das rotas
+  context/        # contextos (Theme, etc.)
+  hooks/          # hooks reutilizáveis
+  helpers/        # formatadores e utilitários
+```
+
+---
+
+## Testes
+
+- `npm test`: executa com Jest/Testing Library (CRA).
+
+## Troubleshooting
+
+- Porta 3000 ocupada: pare serviços que usam a porta ou altere o mapeamento no Compose.
+- Variáveis de ambiente não aplicadas: confirme o nome correto (`REACT_APP_SWAPI_URL`), a presença do `.env` e reinicie o container.
+
+---
+
+## Notas de arquitetura
+
+- A baseURL da API é configurada em tempo de build/execução via `REACT_APP_SWAPI_URL`. Não use valores embutidos no código.
+- O projeto segue a separação por domínios (api/services/models, components e pages), facilitando manutenção e evolução.
+
+---
