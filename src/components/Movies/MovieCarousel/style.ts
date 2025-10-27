@@ -4,6 +4,9 @@ import styled from "styled-components";
 
 export const CharacterMoviesContainer = styled(Card)`
   width: 60%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const CarouselImage = styled(Image)`

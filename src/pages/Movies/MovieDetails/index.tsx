@@ -1,4 +1,4 @@
-import { Layout, Skeleton, Typography } from "antd";
+import { Layout, Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { getMovie } from "../../../api/services/movies";
@@ -8,8 +8,6 @@ import MovieDetail from "../../../components/Movies/MovieDetail";
 import Lists from "../../../components/Lists";
 import type { Movie } from "../../../api/models/Movie";
 import type { Character } from "../../../api/models/Character";
-
-const { Paragraph } = Typography;
 
 const MovieDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -64,9 +62,6 @@ const MovieDetails = () => {
             <Lists
               title="Characters"
               items={characters}
-              renderItem={(item: Character) => (
-                <Paragraph key={item.url}>{item.name}</Paragraph>
-              )}
               loading={charactersLoading}
               error={charactersError ? "Error loading characters" : ""}
               linkTo="/characters"

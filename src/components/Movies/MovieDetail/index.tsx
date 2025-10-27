@@ -26,7 +26,7 @@ const MovieDetail = ({ movie, loading, movieId }: MovieDetailProps) => {
           <Typography.Title
             level={2}
             ellipsis={{ rows: 1 }}
-            style={{ marginBottom: 0 }}
+            style={{ marginBottom: 0, fontSize: width > 900 ? "24px" : "16px" }}
           >
             {movie?.title}
           </Typography.Title>
@@ -39,11 +39,25 @@ const MovieDetail = ({ movie, loading, movieId }: MovieDetailProps) => {
         loading={loading}
       >
         <Row gutter={[16, 16]}>
-          <Col span={6} xs={24} sm={24} md={6} lg={6} xl={6}>
+          <Col
+            span={6}
+            xs={24}
+            sm={24}
+            md={6}
+            lg={6}
+            xl={6}
+            style={{ display: "flex", justifyContent: "center" }}
+          >
             <Image
               src={`/films/${movieId}.jpg`}
               alt={movie?.title}
-              style={{ width: "100%" }}
+              style={{
+                width: "100%",
+                maxHeight: width > 900 ? "600px" : "300px",
+                objectFit: "cover",
+                objectPosition: "center",
+                alignSelf: "center",
+              }}
             />
           </Col>
           <Col span={18} xs={24} sm={24} md={18} lg={18} xl={18}>

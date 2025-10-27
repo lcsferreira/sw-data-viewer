@@ -1,4 +1,3 @@
-import { Card } from "antd";
 import {
   CarouselCard,
   CarouselContainer,
@@ -19,11 +18,7 @@ interface MovieCarouselProps {
 const MovieCarousel = ({ loading, filmsUrls }: MovieCarouselProps) => {
   const { mode } = useTheme();
   const navigate = useNavigate();
-  const {
-    data: movies = [],
-    isLoading: moviesLoading,
-    error: moviesError,
-  } = useQuery<Movie[]>({
+  const { data: movies = [], isLoading: moviesLoading } = useQuery<Movie[]>({
     queryKey: ["movies", filmsUrls],
     queryFn: async () => {
       return Promise.all(

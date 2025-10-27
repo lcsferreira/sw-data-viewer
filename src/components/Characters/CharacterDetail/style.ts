@@ -5,6 +5,9 @@ import { ThemeMode } from "../../../context/ThemeContext";
 
 export const CharacterDetailCard = styled(Card)`
   width: 60%;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const BackButton = styled(Link)<{ mode: ThemeMode }>`
