@@ -35,8 +35,6 @@ Importante:
 - Em tempo de execução no container, o Compose carrega o arquivo `.env` automaticamente (veja `docker-compose.yml`).
 - Em ambiente local (sem Docker), crie o arquivo `.env` na raiz antes de iniciar `npm start`.
 
-Bug conhecido (deve ser corrigido no código/infra): o `docker-compose.yml` exporta `REACT_APP_API_URL`, enquanto o código usa `REACT_APP_SWAPI_URL`. Alinhe os nomes para evitar comportamento inesperado. Recomendação: padronizar para `REACT_APP_SWAPI_URL`.
-
 ---
 
 ## Instalação (sem Docker)
