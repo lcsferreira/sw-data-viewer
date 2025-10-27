@@ -2,6 +2,8 @@
 
 Aplicação React que exibe dados do universo Star Wars (filmes, personagens, espécies e planetas), consumindo a API pública. O projeto foi iniciado com Create React App (CRA) e oferece suporte a desenvolvimento local com Node e a um ambiente de desenvolvimento via Docker/Compose com hot-reload.
 
+Se preferir, acesse a versão online sem instalação: [sw-data-viewer.vercel.app](https://sw-data-viewer.vercel.app/).
+
 ### Stack
 
 - React 17 + TypeScript
