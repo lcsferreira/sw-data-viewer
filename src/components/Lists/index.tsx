@@ -29,17 +29,9 @@ const Lists = ({
   }
   return (
     <ListsContainer title={title} style={{ width: "100%" }}>
-      {/* <List
-        dataSource={items}
-        renderItem={(item: any) => (
-          <List.Item onClick={() => handleClick(item)}>
-            {renderItem(item)}
-          </List.Item>
-        )}
-      /> */}
       <Flex gap="middle" wrap justify="space-between">
         {items.map((item: any) => (
-          <Button key={item.url} onClick={() => handleClick(item)} type="text">
+          <Button key={item.name} onClick={() => handleClick(item)} type="text">
             {item.name}
           </Button>
         ))}

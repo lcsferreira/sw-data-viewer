@@ -5,7 +5,7 @@ import StarWarsCrawl from "../StarWarsCrawl";
 import { useState } from "react";
 import PlayCircleFilled from "@ant-design/icons/lib/icons/PlayCircleFilled";
 import StopFilled from "@ant-design/icons/lib/icons/StopFilled";
-import { format } from "date-fns";
+import dayjs from "dayjs";
 import useWindowDimensions from "../../../hooks/useWindowDimensios";
 import { useTheme } from "../../../context/ThemeContext";
 
@@ -60,7 +60,7 @@ const MovieDetail = ({ movie, loading, movieId }: MovieDetailProps) => {
                 <Typography.Paragraph>{movie?.producer}</Typography.Paragraph>
               </Descriptions.Item>
               <Descriptions.Item label="Release Date">
-                {format(movie?.release_date, "dd/MM/yyyy")}
+                {dayjs(movie.release_date).format("DD/MM/YYYY")}
               </Descriptions.Item>
               <Descriptions.Item label="Episode">
                 {movie?.episode_id}
