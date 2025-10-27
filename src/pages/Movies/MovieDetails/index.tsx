@@ -14,7 +14,6 @@ const { Paragraph } = Typography;
 const MovieDetails = () => {
   const { id } = useParams<{ id: string }>();
 
-  // 1️⃣ Busca principal: o filme
   const {
     data: movie,
     error: movieError,
@@ -23,10 +22,9 @@ const MovieDetails = () => {
     queryKey: ["movie", id],
     queryFn: () => getMovie(id!),
     enabled: !!id,
-    staleTime: 1000 * 60 * 5, // 5min cache
+    staleTime: 1000 * 60 * 5,
   });
 
-  // 2️⃣ Busca dependente: personagens
   const {
     data: characters = [],
     isLoading: charactersLoading,
@@ -59,7 +57,6 @@ const MovieDetails = () => {
   return (
     <Layout>
       <MovieDetailContainer>
-        {/* Skeleton para UX melhor */}
         {movieLoading && <Skeleton active paragraph={{ rows: 8 }} />}
         {movie && (
           <>

@@ -19,9 +19,6 @@ const MovieCard = ({ movie, loading }: MovieCardProps) => {
         hoverable
         loading={loading}
         cover={
-          // loading ? (
-          //   <Image alt={movie.title} src={`placeholder.jpg`} preview={false} />
-          // ) : (
           <Image
             alt={movie.title}
             src={`/films/${id}.jpg`}
@@ -30,7 +27,6 @@ const MovieCard = ({ movie, loading }: MovieCardProps) => {
             }}
             preview={false}
           />
-          // )
         }
       >
         <Meta

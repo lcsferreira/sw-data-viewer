@@ -1,7 +1,4 @@
-// StarWarsCrawl.tsx
-
 import React from "react";
-// ...seus imports de style
 import { Modal } from "antd";
 import {
   CrawlContainer,
@@ -17,7 +14,6 @@ interface StarWarsCrawlProps {
   title: string;
   episode: number;
   text: string;
-  // 'width' não é mais necessário para trocar o layout
   close: () => void;
 }
 
@@ -28,16 +24,8 @@ const StarWarsCrawl: React.FC<StarWarsCrawlProps> = ({
   animate,
   close,
 }) => {
-  // Remove o 'if (width < 768)'
-  // O componente agora SEMPRE renderiza o Modal.
-  // O Modal já é responsivo por padrão.
   return (
-    <Modal
-      open={animate}
-      footer={null}
-      onCancel={close}
-      width="80vw" /* Opcional: ajustar largura */
-    >
+    <Modal open={animate} footer={null} onCancel={close} width="80vw">
       <CrawlContainer>
         <CrawlContent $animate={animate}>
           <TextContainer>

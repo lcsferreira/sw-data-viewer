@@ -78,7 +78,6 @@ const MovieDetail = ({ movie, loading, movieId }: MovieDetailProps) => {
                 {playOpeningCrawl && (
                   <StarWarsCrawl
                     close={() => setPlayOpeningCrawl(false)}
-                    // width={width}
                     animate={playOpeningCrawl}
                     text={movie.opening_crawl}
                     episode={movie.episode_id}

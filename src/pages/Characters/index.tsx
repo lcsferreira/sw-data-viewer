@@ -45,25 +45,20 @@ const Characters = () => {
         </BackButton>
         <SearchInput
           placeholder="Search for characters"
-          onChange={handleSearchChange} // Só precisamos do onChange agora
-          value={search} // Controlamos o input
+          onChange={handleSearchChange}
+          value={search}
         />
       </SearchBar>
       <Row justify="center">
-        {/* 5. Usamos o 'isLoading' para o primeiro carregamento */}
         {isLoading && characters.length === 0 && (
           <Flex align="center" gap="middle">
             <Spin size="large" />
           </Flex>
         )}
-        {/* Renderizamos os personagens. 
-          Se 'keepPreviousData' for true, os personagens antigos
-          continuam aqui enquanto os novos carregam, o que é ótimo!
-        */}
         {characters.map((character: Character) => (
           <CharacterCard
             key={character.url}
-            character={character} // Passamos 'isFetching' para o card se ele precisar // mostrar um skeleton ou algo do tipo
+            character={character}
             loading={isFetching}
           />
         ))}
@@ -73,7 +68,7 @@ const Characters = () => {
         total={total}
         pageSize={10}
         showSizeChanger={false}
-        onChange={(page) => setPage(page)} // Desabilitamos enquanto uma nova página está sendo buscada
+        onChange={(page) => setPage(page)}
         disabled={isFetching}
       />
     </Container>
